@@ -1,0 +1,94 @@
+
+en
+conf t
+
+====================================
+for switch |
+------------
+
+en
+conf t
+vtp domain d1
+vtp mode client
+interface FastEthernet0/24
+switchport mode trunk
+
+====================================
+for L3 switch |
+---------------
+
+en
+conf t
+vtp domain d1
+vtp mode server
+interface range FastEthernet0/1-5
+switchport trunk encapsulation dot1Q
+switchport mode trunk
+
+
+------------------------------------
+
+exit
+exit
+vlan
+vlan database
+vlan 10 name admin
+vlan 120 name g1
+vlan 130 name g2
+vlan 140 name g3
+vlan 150 name wifi
+
+------------------------------------
+exit
+conf t
+int vlan 10
+ip address 192.168.1.81 255.255.255.240
+no shutdown
+int vlan 120
+ip address 192.168.1.1 255.255.255.224
+no shutdown
+int vlan 130
+ip address 192.168.1.33 255.255.255.240
+no shutdown
+int vlan 140
+ip address 192.168.1.49 255.255.255.240
+no shutdown
+int vlan 150
+ip address 192.168.1.65 255.255.255.248
+no shutdown
+ip routing
+
+=====================================
+for NAT router |
+----------------
+access-list 12 permit any
+ip nat inside source list 12 interface gi0/0 overload
+int gi0/0
+ip nat inside
+exit
+int gi1/0
+ip nat outside
+
+access-list 101 permit tcp any any eq 80
+access-list 102 permit tcp any eq 80 any established
+int gi0/0
+ip access-group 101 in
+exit
+int gi1/0
+ip access-group 102 in
+
+access-list 101 permit tcp 192.168.1.82 0.0.0.15 any 
+access-list 101 permit udp 192.168.1.82 0.0.0.15 any 
+access-list 101 permit icmp 192.168.1.82 0.0.0.15 any 
+access-list 1 permit 192.168.1.82 0.0.0.15
+int vlan 10
+ip access-group 101 in
+exit
+access-list 1 deny 192.168.1.0 0.0.0.63
+access-list 1 deny 192.168.1.32 0.0.0.63
+access-list 1 deny 192.168.1.48 0.0.0.63
+access-list 1 deny 192.168.1.65 0.0.0.63
+int vlan 10
+ip access-group 1 out
+
+

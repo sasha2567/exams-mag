@@ -1,0 +1,223 @@
+root0
+interface FastEthernet0/1
+no switchport
+ip address 192.168.1.1 255.255.255.0
+interface FastEthernet0/2
+no switchport
+ip address 192.168.2.1 255.255.255.0
+interface FastEthernet0/3
+no switchport
+ip address 192.168.3.1 255.255.255.0
+interface FastEthernet0/4
+no switchport
+ip address 192.168.4.1 255.255.255.0
+interface FastEthernet0/10
+no switchport
+ip address 192.168.10.1 255.255.255.0
+exit
+ip routing
+do wr
+
+floor1
+interface FastEthernet0/1
+no switchport
+ip address 192.168.11.254 255.255.255.0
+interface FastEthernet0/5
+no switchport
+ip address 192.168.51.254 255.255.255.0
+interface FastEthernet0/6
+no switchport
+ip address 192.168.61.254 255.255.255.0
+interface FastEthernet0/10
+no switchport
+ip address 192.168.101.254 255.255.255.0
+interface FastEthernet0/24
+no switchport
+ip address 192.168.1.254 255.255.255.0
+exit
+ip routing
+do wr
+
+floor2
+interface FastEthernet0/2
+no switchport
+ip address 192.168.22.254 255.255.255.0
+interface FastEthernet0/5
+no switchport
+ip address 192.168.52.254 255.255.255.0
+interface FastEthernet0/10
+no switchport
+ip address 192.168.102.254 255.255.255.0
+interface FastEthernet0/24
+no switchport
+ip address 192.168.2.254 255.255.255.0
+exit
+ip routing
+do wr
+
+floor3
+interface FastEthernet0/3
+no switchport
+ip address 192.168.33.254 255.255.255.0
+interface FastEthernet0/5
+no switchport
+ip address 192.168.53.254 255.255.255.0
+interface FastEthernet0/6
+no switchport
+ip address 192.168.63.254 255.255.255.0
+interface FastEthernet0/10
+no switchport
+ip address 192.168.103.254 255.255.255.0
+interface FastEthernet0/24
+no switchport
+ip address 192.168.3.254 255.255.255.0
+exit
+ip routing
+do wr
+
+floor4
+interface FastEthernet0/5
+no switchport
+ip address 192.168.54.254 255.255.255.0
+interface FastEthernet0/6
+no switchport
+ip address 192.168.64.254 255.255.255.0
+interface FastEthernet0/7
+no switchport
+ip address 192.168.74.254 255.255.255.0
+interface FastEthernet0/8
+no switchport
+ip address 192.168.84.254 255.255.255.0
+interface FastEthernet0/9
+no switchport
+ip address 192.168.94.254 255.255.255.0
+interface FastEthernet0/10
+no switchport
+ip address 192.168.104.254 255.255.255.0
+interface FastEthernet0/24
+no switchport
+ip address 192.168.4.254 255.255.255.0
+exit
+ip routing
+do wr
+---------------------------------OSPF------------------------------------
+root0
+router rip
+version 2
+network 192.168.1.0
+network 192.168.2.0
+network 192.168.3.0
+network 192.168.4.0
+no auto-summary
+do wr
+
+floor1
+router rip
+version 2
+network 192.168.1.0
+network 192.168.11.0
+network 192.168.51.0
+network 192.168.61.0
+no auto-summary
+do wr
+
+floor2
+router rip
+version 2
+network 192.168.2.0
+network 192.168.22.0
+network 192.168.52.0
+no auto-summary
+do wr
+
+floor3
+router rip
+version 2
+network 192.168.3.0
+network 192.168.33.0
+network 192.168.53.0
+network 192.168.63.0
+no auto-summary
+do wr
+
+floor4
+router rip
+version 2
+network 192.168.4.0
+network 192.168.54.0
+network 192.168.64.0
+network 192.168.74.0
+network 192.168.84.0
+network 192.168.94.0
+no auto-summary
+do wr
+---------------------------------ACL-------------------------------------
+access-list 111 permit icmp 192.168.11.0 0.0.0.255 192.168.22.0 0.0.0.255
+access-list 111 permit icmp 192.168.11.0 0.0.0.255 192.168.33.0 0.0.0.255
+access-list 111 permit icmp 192.168.22.0 0.0.0.255 192.168.11.0 0.0.0.255
+access-list 111 permit icmp 192.168.22.0 0.0.0.255 192.168.33.0 0.0.0.255
+access-list 111 permit icmp 192.168.33.0 0.0.0.255 192.168.11.0 0.0.0.255
+access-list 111 permit icmp 192.168.33.0 0.0.0.255 192.168.22.0 0.0.0.255
+
+access-list 111 permit icmp 192.168.51.0 0.0.4.255 192.168.51.0 0.0.4.255
+
+access-list 111 permit icmp 192.168.61.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 111 permit icmp 192.168.61.0 0.0.0.255 192.168.64.0 0.0.0.255
+access-list 111 permit icmp 192.168.61.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 111 permit icmp 192.168.63.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 111 permit icmp 192.168.63.0 0.0.0.255 192.168.64.0 0.0.0.255
+access-list 111 permit icmp 192.168.63.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 111 permit icmp 192.168.64.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 111 permit icmp 192.168.64.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 111 permit icmp 192.168.64.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 111 permit icmp 192.168.74.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 111 permit icmp 192.168.74.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 111 permit icmp 192.168.74.0 0.0.0.255 192.168.64.0 0.0.0.255
+
+access-list 111 permit icmp 192.168.84.0 0.0.11.255 192.168.84.0 0.0.11.255
+
+access-list 161 permit icmp 192.168.61.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 161 permit icmp 192.168.61.0 0.0.0.255 192.168.64.0 0.0.0.255
+access-list 161 permit icmp 192.168.61.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 161 permit icmp 192.168.63.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 161 permit icmp 192.168.63.0 0.0.0.255 192.168.64.0 0.0.0.255
+access-list 161 permit icmp 192.168.63.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 161 permit icmp 192.168.64.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 161 permit icmp 192.168.64.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 161 permit icmp 192.168.64.0 0.0.0.255 192.168.74.0 0.0.0.255
+access-list 161 permit icmp 192.168.74.0 0.0.0.255 192.168.61.0 0.0.0.255
+access-list 161 permit icmp 192.168.74.0 0.0.0.255 192.168.63.0 0.0.0.255
+access-list 161 permit icmp 192.168.74.0 0.0.0.255 192.168.64.0 0.0.0.255
+
+access-list 121 permit icmp 192.168.11.0 0.0.0.255 192.168.22.0 0.0.0.255
+access-list 121 permit icmp 192.168.11.0 0.0.0.255 192.168.33.0 0.0.0.255
+access-list 121 permit icmp 192.168.22.0 0.0.0.255 192.168.11.0 0.0.0.255
+access-list 121 permit icmp 192.168.22.0 0.0.0.255 192.168.33.0 0.0.0.255
+access-list 121 permit icmp 192.168.33.0 0.0.0.255 192.168.11.0 0.0.0.255
+access-list 121 permit icmp 192.168.33.0 0.0.0.255 192.168.22.0 0.0.0.255
+
+access-list 151 permit icmp 192.168.51.0 0.0.4.255 192.168.51.0 0.0.4.255
+
+access-list 181 permit icmp 192.168.84.0 0.0.11.255 192.168.84.0 0.0.11.255
+
+root0
+interface FastEthernet0/1
+ip access-group 111 in
+ip access-group 111 out
+interface FastEthernet0/2
+ip access-group 111 in
+ip access-group 111 out
+interface FastEthernet0/3
+ip access-group 111 in
+ip access-group 111 out
+
+floor1
+interface FastEthernet0/1
+ip access-group 121 in
+ip access-group 121 out
+interface FastEthernet0/2
+ip access-group 161 in
+ip access-group 161 out
+interface FastEthernet0/3
+ip access-group 151 in
+ip access-group 151 out

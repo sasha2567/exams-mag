@@ -1,0 +1,12 @@
+create view Kolichestvo_Ocenok(Num_facultet,Num_predmet,proc_5,proc_4) as
+select distinct a.Num_facultet,a.Num_predmet,
+(select count(Ocenka)*1.00 from Student_Facultet
+ where a.Num_facultet = Num_facultet and a.Num_predmet=Num_predmet and Ocenka=5)*100.00/
+(select count(Ocenka)*1.00 from Student_Facultet 
+where a.Num_facultet = Num_facultet and a.Num_predmet=Num_predmet) as proc_5,
+(select count(Ocenka)*1.00 from Student_Facultet
+ where a.Num_facultet = Num_facultet and a.Num_predmet=Num_predmet and Ocenka=4)*100.00/
+(select count(Ocenka)*1.00 from Student_Facultet 
+where a.Num_facultet = Num_facultet and a.Num_predmet=Num_predmet) as proc_4
+from Student_Facultet a
+;

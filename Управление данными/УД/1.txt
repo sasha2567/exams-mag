@@ -1,0 +1,66 @@
+Create table Ekzamen (Data  varchar(8) not null,
+Num_facultet integer not null, 
+Num_predmet integer not null, 
+Gruppa varchar(20), 
+Tab_Num integer not null,
+primary key(Data,Num_facultet,Num_predmet));
+
+Create table Facultet (Num_facultet integer not null, 
+Naimenovanie varchar(20),
+primary key(Num_facultet));
+
+Create table Facultet_Predmet (Num_facultet integer not null, 
+Num_predmet integer not null, 
+Count_time integer,
+primary key(Num_facultet,Num_predmet));
+
+Create table Predmet (Num_predmet integer not null, 
+Naimenovanie_predmeta varchar(20), 
+primary key(Num_predmet));
+
+Create table Student (Num_zachetka integer not null, 
+FIO varchar(30), 
+primary key(Num_zachetka));
+
+Create table Prepodavatel (Tab_Num integer not null,
+Num_facultet integer not null, 
+FIO varchar(20),
+Doljnost varchar(20),
+Nauchnoe_zvanie varchar(20), 
+primary key(Tab_Num,Num_facultet));
+
+Create table Student_Facultet (Num_facultet integer not null, 
+Num_predmet integer not null, 
+Num_zachetka integer not null, 
+Ocenka integer,
+primary key(Num_facultet, Num_predmet,Num_zachetka));
+
+alter table Ekzamen add foreign key (Num_facultet,Num_predmet)
+references Facultet_Predmet(Num_facultet,Num_predmet)
+on update cascade
+on delete cascade;
+
+alter table Student_Facultet add foreign key (Num_facultet,Num_predmet)
+references Facultet_Predmet(Num_facultet,Num_predmet)
+on update cascade
+on delete cascade;
+
+alter table Student_Facultet add foreign key (Num_zachetka)
+references Student(Num_zachetka)
+on update cascade
+on delete cascade;
+
+alter table Prepodavatel add foreign key (Num_facultet)
+references Facultet(Num_facultet)
+on update cascade
+on delete cascade;
+
+alter table Facultet_Predmet add foreign key (Num_facultet)
+references Facultet(Num_facultet)
+on update cascade
+on delete cascade;
+
+alter table Facultet_Predmet add foreign key (Num_predmet)
+references Predmet (Num_predmet)
+on update cascade
+on delete cascade;

@@ -1,0 +1,9 @@
+D:\Sasha\7semestr\ИАД\IAD\IAD\bin\Debug\IAD.exe.config
+D:\Sasha\7semestr\ИАД\IAD\IAD\bin\Debug\IAD.exe
+D:\Sasha\7semestr\ИАД\IAD\IAD\bin\Debug\IAD.pdb
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.csprojResolveAssemblyReference.cache
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.Properties.Resources.resources
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.csproj.GenerateResource.Cache
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.exe
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.pdb
+D:\Sasha\7semestr\ИАД\IAD\IAD\obj\Debug\IAD.IAD.resources

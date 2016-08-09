@@ -1,0 +1,38 @@
+
+SQL> create database 'localhost:c:\work\Ivanov.fdb'
+CON> user 'SYSDBA' password 'masterkey';
+
+----------------------------------------------------
+SQL> quit;
+
+----------------------------------------------------
+
+SQL> connect 'c:\work\Ivanov.fdb' user 'SYSDBA' password 'masterkey';
+
+------------------------------------------------------
+
+SQL> create table student(
+CON> nz int not null,
+CON> fio varchar(30),
+CON> date_birth date,
+CON> adres varchar(30),
+CON> ball decimal(3,2),
+CON> pol char check (pol in ('f','m')),
+CON> gruppa char(5)
+CON> );
+------------------------------------------------------
+SQL> insert into student values(121212,'Ivanov I.I.', '10.01.1994','Yalta, Lenin
+a 33', 4.75, 'm','I-23d');
+SQL> select * from student;
+
+--------------------------------------------------
+
+SQL> create database 'c:\work\Ivanov.fdb'
+CON> user 'SYSDBA' password 'masterkey'
+CON> page_size = 4096
+CON> default character set win1251;
+
+
+
+
+          
